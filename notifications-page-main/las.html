@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+  integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+  crossorigin="anonymous"
+/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@300&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    .notification-container {
+      max-width: 400px;
+      margin: 20px auto;
+      background-color: #fff;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .notification-title {
+      font-size: 20px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .mark-all-as-read {
+      cursor: pointer;
+      /* color: #007bff; */
+      text-decoration: underline;
+    }
+
+    .notification {
+      border-bottom: 1px solid #ccc;
+      padding: 10px 0;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .notification-unread {
+      background-color: #e6f7ff;
+      transition: background-color 0.3s; /* Add smooth transition effect */
+    }
+
+    .notification-read {
+      background-color: #fff;
+    }
+
+    .notification-dot {
+      width: 10px;
+      height: 10px;
+      background-color: #ff0000;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .notification-details-box {
+      display: none;
+      padding: 10px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+    }
+
+    .notification-profile {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .notification-username {
+      font-weight: bold;
+    }
+
+    .notification-time {
+      color: #777;
+    }
+  </style>
+  <title>Notification Page</title>
+</head>
+<body>
+
+<div class="notification-container">
+  <div class="notification-title">
+    Notifications
+    <div class="mark-all-as-read" onclick="markAllAsRead()">Mark All as Read</div>
+  </div>
+
+  <div class=" notification-unread" onclick="toggleDetails(this, 1)" onmouseover="highlightNotification(this)" onmouseout="unhighlightNotification(this)">
+    <div class="notification-dot"></div>
+    <img src="profile1.jpg" alt="Profile" class="notification-profile">
+    <div class="notification-username">User1</div>
+    <div class="notification-time">12:30 PM</div>
+    <div class="notification-details-box">
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem accusamus doloremque autem exercitationem enim pariatur debitis fugiat unde modi explicabo laboriosam aliquam inventore, voluptas dignissimos necessitatibus vero, odit nemo neque, quos blanditiis perferendis animi assumenda odio impedit. Vel, libero praesentium.
+    </div>
+  </div>
+
+  <div class=" notification-read" onclick="toggleDetails(this, 2)" onmouseover="highlightNotification(this)" onmouseout="unhighlightNotification(this)">
+    <img src="profile2.jpg" alt="Profile" class="notification-profile">
+    <div class="notification-username">User2</div>
+    <div class="notification-time">1:45 PM</div>
+    <div class="notification-details-box">
+      Notification details for User2.
+    </div>
+  </div>
+
+  <!-- Add more notifications as needed -->
+
+</div>
+
+<script>
+  function markAllAsRead() {
+    const unreadNotifications = document.querySelectorAll('.notification-unread');
+    unreadNotifications.forEach(notification => {
+      notification.classList.remove('notification-unread');
+      notification.classList.add('notification-read');
+      const dot = notification.querySelector('.notification-dot');
+      if (dot) {
+        dot.style.display = 'none';
+      }
+      // Store the read state in localStorage
+      const id = notification.dataset.id;
+      localStorage.setItem(`notification_${id}`, 'read');
+    });
+  }
+
+  function toggleDetails(notification, id) {
+    const detailsBox = notification.querySelector('.notification-details-box');
+    detailsBox.style.display = detailsBox.style.display === 'none' ? 'block' : 'none';
+
+    const hasBeenClicked = notification.getAttribute('data-clicked');
+    if (!hasBeenClicked) {
+      notification.classList.remove('notification-unread');
+      notification.classList.add('notification-read');
+      const dot = notification.querySelector('.notification-dot');
+      if (dot) {
+        dot.style.display = 'none';
+      }
+      // Store the read state in localStorage
+      localStorage.setItem(`notification_${id}`, 'read');
+      notification.setAttribute('data-clicked', 'true');
+    }
+  }
+
+  function highlightNotification(notification) {
+    if (!notification.getAttribute('data-clicked')) {
+      notification.style.backgroundColor = ''; // Change to your desired hover color
+    }
+  }
+
+  function unhighlightNotification(notification) {
+    notification.style.backgroundColor = ''; // Remove the hover color
+  }
+
+  // Set the initial read/unread state based on localStorage
+  function initializeStates() {
+    for (let i = 1; i <= 2; i++) {
+      const notification = document.querySelector(`.notification[data-id="${i}"]`);
+      const state = localStorage.getItem(`notification_${i}`);
+      if (state === 'read') {
+        notification.classList.remove('notification-unread');
+        notification.classList.add('notification-read');
+        const dot = notification.querySelector('.notification-dot');
+        if (dot) {
+          dot.style.display = 'none';
+        }
+        notification.setAttribute('data-clicked', 'true');
+      }
+    }
+  }
+
+  initializeStates();
+</script>
+
+
+<script
+src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZhcTNXj1NW7RuBCsyN/o0jlpcV8Q3''yq46cDfL"
+crossorigin="anonymous"
+></script>
+
+</body>
+</html>

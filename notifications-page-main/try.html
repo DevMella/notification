@@ -1,0 +1,226 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    .notification-container {
+      max-width: 400px;
+      margin: 20px auto;
+      background-color: #fff;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .notification-title {
+      font-size: 20px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .mark-all-as-read {
+      cursor: pointer;
+      color: #007bff;
+      text-decoration: underline;
+    }
+
+    .notification {
+      border-bottom: 1px solid #ccc;
+      padding: 10px 0;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .notification-unread {
+      background-color: #e6f7ff;
+      transition: background-color 0.3s, opacity 0.3s; /* Add smooth transition effect */
+    }
+
+    .notification-read {
+      background-color: #fff;
+    }
+
+    .notification-dot {
+      width: 10px;
+      height: 10px;
+      background-color: #ff0000;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .notification-details-box {
+      padding: 10px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      display: none;
+    }
+
+    .notification-profile {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .notification-username {
+      font-weight: bold;
+    }
+
+    .notification-time {
+      color: #777;
+    }
+
+    .notification-counter {
+      font-size: 14px;
+      font-weight: bold;
+      color: #ff0000;
+      margin-left: 10px;
+    }
+  </style>
+  <title>Notification Page</title>
+</head>
+<body>
+
+<div class="notification-container">
+  <div class="notification-title">
+    Notifications
+    <div class="notification-counter" id="notificationCounter">2</div>
+    <div class="mark-all-as-read" onclick="markAllAsRead()">Mark All as Read</div>
+  </div>
+
+  <div class="notification notification-unread" onclick="toggleDetails(this, 1)" onmouseover="highlightNotification(this)" onmouseout="unhighlightNotification(this)">
+    <div class="notification-dot"></div>
+    <img src="profile1.jpg" alt="Profile" class="notification-profile">
+    <div class="notification-username">User1</div>
+    <div class="notification-time">12:30 PM</div>
+    <div class="notification-details-box">
+      Notification details for User1.
+    </div>
+  </div>
+
+  <div class="notification notification-unread" onclick="toggleDetails(this, 2)" onmouseover="highlightNotification(this)" onmouseout="unhighlightNotification(this)">
+    <div class="notification-dot"></div>
+    <img src="profile2.jpg" alt="Profile" class="notification-profile">
+    <div class="notification-username">User2</div>
+    <div class="notification-time">1:45 PM</div>
+    <div class="notification-details-box">
+      Notification details for User2.
+    </div>
+  </div>
+
+  <!-- Add more notifications as needed -->
+
+</div>
+
+<script>
+  let openNotification = null;
+
+  function markAllAsRead() {
+    const unreadNotifications = document.querySelectorAll('.notification-unread');
+    unreadNotifications.forEach(notification => {
+      notification.classList.remove('notification-unread');
+      notification.classList.add('notification-read');
+      const dot = notification.querySelector('.notification-dot');
+      if (dot) {
+        dot.style.display = 'none';
+        notificationCounter.style.display = "none";
+      }
+      // Store the read state in localStorage
+      const id = notification.dataset.id;
+      localStorage.setItem(`notification_${id}`, 'read');
+    });
+
+    updateNotificationCounter(0);
+  }
+
+  function toggleDetails(notification, id) {
+    const detailsBox = notification.querySelector('.notification-details-box');
+    const hasBeenClicked = notification.getAttribute('data-clicked');
+
+    // Close any open details box
+    if (openNotification && openNotification !== notification) {
+      closeDetails(openNotification);
+    }
+
+    if (!hasBeenClicked) {
+      notification.classList.remove('notification-unread');
+      notification.classList.add('notification-read');
+      const dot = notification.querySelector('.notification-dot');
+      if (dot) {
+        dot.style.opacity = '0';
+      }
+      // Store the read state in localStorage
+      localStorage.setItem(`notification_${id}`, 'read');
+      notification.setAttribute('data-clicked', 'true');
+
+      updateNotificationCounter(-1);
+    }
+
+    if (detailsBox.style.display === 'none') {
+      detailsBox.style.display = 'block';
+      openNotification = notification;
+    } else {
+      detailsBox.style.display = 'none';
+      openNotification = null;
+    }
+  }
+
+  function closeDetails(notification) {
+    const detailsBox = notification.querySelector('.notification-details-box');
+    detailsBox.style.display = 'none';
+    openNotification = null;
+  }
+
+  function highlightNotification(notification) {
+    if (!notification.getAttribute('data-clicked')) {
+      notification.style.backgroundColor = '#66b3ff'; // Change to your desired hover color
+    }
+  }
+
+  function unhighlightNotification(notification) {
+    notification.style.backgroundColor = ''; // Remove the hover color
+  }
+
+  // Set the initial read/unread state based on localStorage
+  function initializeStates() {
+    let unreadCount = 0;
+
+    for (let i = 1; i <= 2; i++) {
+      const notification = document.querySelector(`.notification[data-id="${i}"]`);
+      const state = localStorage.getItem(`notification_${i}`);
+      if (state === 'read') {
+        notification.classList.remove('notification-unread');
+        notification.classList.add('notification-read');
+        const dot = notification.querySelector('.notification-dot');
+        if (dot) {
+          dot.style.opacity = '0';
+        }
+      } else {
+        unreadCount++;
+      }
+    }
+
+    updateNotificationCounter(unreadCount);
+  }
+
+  function updateNotificationCounter(change) {
+    const counter = document.getElementById('notificationCounter');
+    let currentCount = parseInt(counter.textContent, 10);
+    currentCount += change;
+    counter.textContent = Math.max(0, currentCount).toString();
+  }
+
+  initializeStates();
+</script>
+
+</body>
+</html>

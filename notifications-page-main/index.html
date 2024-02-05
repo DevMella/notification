@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  <title>Frontend Mentor | Notifications page</title>
+  <link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+  integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+  crossorigin="anonymous"
+/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="index.css">
+  <!-- <link rel="stylesheet" href=".//fonts.google.com/specimen/Plus+Jakarta+Sans"> -->
+  <style>
+    .attribution { font-size: 11px; text-align: center; }
+    .attribution a { color: hsl(228, 45%, 44%); }
+  </style>
+</head>
+<body>
+
+  <section class="all">
+    <div class="fir">
+      <div class="notification-container shadow">
+        <div class="notification-title d-flex align-items-center justify-content-between">
+          <div class="fas d-flex ">
+            <h5>Notifications</h5>
+          <div class="notification-counter d-flex align-items-center justify-content-center" id="notificationCounter">3</div>
+          </div>
+          <div class="mark-all-as-read" onclick="markAllAsRead()">Mark all as read</div>
+        </div>
+      
+        <div class=" notification-unread  " onclick="toggleDetails(this, 1)" onmouseover="highlightNotification(this)" onmouseout="unhighlightNotification(this)">
+         <div class="d-flex ole align-items-center">
+          <img src="./assets/images/avatar-mark-webber.webp" alt="Profile" class="notification-profile">
+          <div class="oni d-flex flex-column">
+              <div class="notification-username rat d-flex gap-2"><h6>Mark Webber <span class="ala">reacted to your recent post</span> <span class="ele">My first tournament today!</span></h6> <div class="notification-dot  notification-dot1"></div>
+            </div> 
+              
+            <div class="notification-time">1m ago</div>
+          </div>
+         </div>
+        
+          <div class="notification-details-box">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero qui consequatur eos dolorem deleniti! Laborum dolores non odit culpa veniam.
+          </div>
+        </div>
+      
+      
+      
+        <div class=" notification-unread  " onclick="toggleDetails(this, 2)" onmouseover="highlightNotification(this)" onmouseout="unhighlightNotification(this)">
+          <div class="d-flex ole align-items-center">
+           <img src="./assets/images/avatar-angela-gray.webp" alt="Profile" class="notification-profile">
+           <div class="oni d-flex flex-column">
+               <div class="notification-username rat d-flex gap-2"><h6>Angela Gray <span class="ala">followed you</span> <span class="ele"></span></h6> <div class="notification-dot  notification-dot2"></div>
+             </div> 
+               
+             <div class="notification-time"> 5m ago</div>
+           </div>
+          </div>
+         
+           <div class="notification-details-box">
+             Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero qui consequatur eos dolorem deleniti! Laborum dolores non odit culpa veniam.
+           </div>
+         </div>
+      
+         
+        <div class=" notification-unread  " onclick="toggleDetails(this, 3)" onmouseover="highlightNotification(this)" onmouseout="unhighlightNotification(this)">
+          <div class="d-flex ole align-items-center">
+           <img src="./assets/images/avatar-jacob-thompson.webp" alt="Profile" class="notification-profile">
+           <div class="oni d-flex flex-column">
+               <div class="notification-username rat d-flex gap-2"><h6>Jacob Thompson <span class="ala">has joined your group </span> <span class="ele">Chess Club</span></h6> <div class="notification-dot  notification-dot3"></div>
+             </div> 
+              
+             <div class="notification-time">1 day ago</div>
+           </div>
+          </div>
+         
+           <div class="notification-details-box">
+             Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero qui consequatur eos dolorem deleniti! Laborum dolores non odit culpa veniam.
+           </div>
+         </div>
+    
+      
+      
+         <div class=" notification-read  " onclick="toggleDetails(this, 4)" onmouseover="highlightNotification(this)" onmouseout="unhighlightNotification(this)">
+          <div class="d-flex ole align-items-center">
+           <img src="./assets/images/avatar-kimberly-smith.webp" alt="Profile" class="notification-profile">
+           <div class="oni d-flex flex-column">
+               <div class="notification-username rat d-flex gap-2"><h6>Kimberly Smith <span class="ala">commented on your picture </span> <span class="ele"></span></h6> 
+                <!-- <img src="./assets/images/image-chess.webp" class="cho" alt=""> -->
+             </div> 
+              
+             <div class="notification-time">1 week ago</div>
+           </div>
+          </div>
+        
+           <div class="notification-details-box">
+            Hello, thanks for setting up the Chess Club. I've been a member for a few weeks now and 
+            I'm already having lots of fun and improving my game.
+           </div>
+         </div>
+      
+         <div class=" notification-read  " onclick="toggleDetails(this, 5)" onmouseover="highlightNotification(this)" onmouseout="unhighlightNotification(this)">
+          <div class="d-flex ole align-items-center">
+           <img src="./assets/images/avatar-rizky-hasanuddin.webp" alt="Profile" class="notification-profile">
+           <div class="oni d-flex flex-column">
+               <div class="notification-username rat d-flex gap-2"><h6>Rizky Hasanuddin <span class="ala">sent you a private message </span> <span class="ele"></span></h6> 
+             </div> 
+             <div class="notification-time">5 day ago</div>
+           </div>
+          </div>
+         
+           <div class="notification-details-box">
+             Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero qui consequatur eos dolorem deleniti! Laborum dolores non odit culpa veniam.
+           </div>
+         </div>
+
+         <div class=" notification-read  " onclick="toggleDetails(this, 6)" onmouseover="highlightNotification(this)" onmouseout="unhighlightNotification(this)">
+          <div class="d-flex ole align-items-center">
+           <img src="./assets/images/avatar-nathan-peterson.webp" alt="Profile" class="notification-profile">
+           <div class="oni d-flex flex-column">
+               <div class="notification-username rat d-flex gap-2"><h6>Nathan Peterson <span class="ala">reacted to your recent post</span> <span class="ele">5 end-game strategies to increase your win rate
+                2 weeks ago</span></h6> 
+             </div> 
+              
+             <div class="notification-time">1 day ago</div>
+           </div>
+          </div>
+           <div class="notification-details-box">
+             Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero qui consequatur eos dolorem deleniti! Laborum dolores non odit culpa veniam.
+           </div>
+         </div>
+
+         <div class=" notification-read  " onclick="toggleDetails(this, 7)" onmouseover="highlightNotification(this)" onmouseout="unhighlightNotification(this)">
+          <div class="d-flex ole align-items-center">
+           <img src="./assets/images/avatar-anna-kim.webp" alt="Profile" class="notification-profile">
+           <div class="oni d-flex flex-column">
+               <div class="notification-username rat d-flex gap-2"><h6>Anna Kim <span class="ala">left the group </span> <span class="ele">Chess Club</span></h6> 
+             </div> 
+             
+             <div class="notification-time">2 weeks ago</div>
+           </div>
+          </div>
+         
+           <div class="notification-details-box">
+             Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero qui consequatur eos dolorem deleniti! Laborum dolores non odit culpa veniam.
+           </div>
+         </div>
+      
+      </div>
+      
+    </div>
+    <div class="attribution mb-4">
+      Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
+      Coded by <a href="#">DevMella</a>.
+    </div>
+  </section>
+  
+
+  <script>
+    let openNotification = null;
+  
+    function markAllAsRead() {
+      const unreadNotifications = document.querySelectorAll('.notification-unread');
+      unreadNotifications.forEach(notification => {
+        notification.classList.remove('notification-unread');
+        notification.classList.add('notification-read');
+        const dot = notification.querySelector('.notification-dot');
+        if (dot) {
+          dot.style.display = 'none';
+        }
+
+        const id = notification.dataset.id;
+        localStorage.setItem(`notification_${id}`, 'read');
+      });
+  
+      updateNotificationCounter(-3);
+    }
+  
+    function toggleDetails(notification, id) {
+      const detailsBox = notification.querySelector('.notification-details-box');
+      const hasBeenClicked = notification.getAttribute('data-clicked');
+
+      if (openNotification && openNotification !== notification) {
+        closeDetails(openNotification);
+      }
+  
+      if (!hasBeenClicked) {
+        notification.classList.remove('notification-unread');
+        notification.classList.add('notification-read');
+        const dot = notification.querySelector('.notification-dot');
+        if (dot) {
+          dot.style.opacity = '0';
+        }
+        localStorage.setItem(`notification_${id}`, 'read');
+        notification.setAttribute('data-clicked', 'true');
+  
+        updateNotificationCounter(-1);
+      }
+  
+      if (detailsBox.style.display === 'none') {
+        detailsBox.style.display = 'block';
+        openNotification = notification;
+      } else {
+        detailsBox.style.display = 'none';
+        openNotification = null;
+      }
+    }
+  
+    function closeDetails(notification) {
+      const detailsBox = notification.querySelector('.notification-details-box');
+      detailsBox.style.display = 'none';
+      openNotification = null;
+    }
+  
+    function highlightNotification(notification) {
+      if (!notification.getAttribute('data-clicked')) {
+        notification.style.backgroundColor = ''; 
+      }
+    }
+  
+    function unhighlightNotification(notification) {
+      notification.style.backgroundColor = ''; 
+    }
+
+    function initializeStates() {
+      let unreadCount = 0;
+  
+      for (let i = 1; i <= 2; i++) {
+        const notification = document.querySelector(`.notification[data-id="${i}"]`);
+        const state = localStorage.getItem(`notification_${i}`);
+        if (state === 'read') {
+          notification.classList.remove('notification-unread');
+          notification.classList.add('notification-read');
+          const dot = notification.querySelector('.notification-dot');
+          if (dot) {
+            dot.style.opacity = '0';
+          }
+        } else {
+          unreadCount++;
+        }
+      }
+  
+      updateNotificationCounter(unreadCount);
+    }
+  
+    function updateNotificationCounter(change) {
+      const counter = document.getElementById('notificationCounter');
+      let currentCount = parseInt(counter.textContent, 10);
+      currentCount += change;
+      counter.textContent = Math.max(0, currentCount).toString();
+    }
+  
+    initializeStates();
+  </script>
+  
+
+  
+<script
+src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZhcTNXj1NW7RuBCsyN/o0jlpcV8Q3''yq46cDfL"
+crossorigin="anonymous"
+></script>
+
+</body>
+</html>
